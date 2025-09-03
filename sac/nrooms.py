@@ -91,14 +91,18 @@ class NRoomsEnv(gym.Env):
         elif action == 2: dc = -1   # left
         elif action == 3: dc = +1   # right
 
+        prev_l1 = np.sum(np.abs(self._pos - self._goal))
+
         nr, nc = int(self._pos[0] + dr), int(self._pos[1] + dc)
         h, w = self._grid.shape
         if 0 <= nr < h and 0 <= nc < w and self._grid[nr, nc] != WALL:
             self._pos[:] = (nr, nc)
 
+        new_l1 = np.sum(np.abs(self._pos - self._goal))
+
         terminated = bool(np.all(self._pos == self._goal))
         truncated  = bool(self._t >= self._time_limit and not terminated)
-        reward = -1.0
+        reward = prev_l1 - new_l1
         return self._get_obs(), reward, terminated, truncated, {
             "position": self._pos.copy(), "goal": self._goal.copy()
         }
