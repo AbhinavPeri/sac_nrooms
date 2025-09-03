@@ -1,0 +1,18 @@
+# Byte-compiled files
+*.pyc
+__pycache__/
+
+# Virtual environment
+.venv/
+env/
+
+# PyCharm project files
+.idea/
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# System files
+.DS_Store
+Thumbs.db
